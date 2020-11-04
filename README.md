@@ -2,6 +2,15 @@
 
 > [Monaco Editor](https://github.com/lianpf/monaco-editor-vue) for Vue.
 
+[![NPM version][npm-image]][npm-url]
+[![Downloads][downloads-image]][npm-url]
+
+[![monaco-editor-vue](https://nodei.co/npm/@lianpf/monaco-editor-vue.png)](https://npmjs.org/package/@lianpf/monaco-editor-vue)
+
+[npm-url]: https://www.npmjs.com/package/@lianpf/monaco-editor-vue  
+[downloads-image]: http://img.shields.io/npm/dm/@lianpf/monaco-editor-vue.svg
+[npm-image]: http://img.shields.io/npm/v/@lianpf/monaco-editor-vue.svg
+
 
 ## Installation
 
