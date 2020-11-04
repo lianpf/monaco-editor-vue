@@ -1,4 +1,4 @@
-# monaco-editor-vue
+# @lianpf/monaco-editor-vue
 
 > [Monaco Editor](https://github.com/lianpf/monaco-editor-vue) for Vue.
 
@@ -49,7 +49,7 @@ export default {
 </script>
 ```
 
-Add the [Monaco Webpack plugin](https://github.com/Microsoft/monaco-editor-webpack-plugin) `monaco-editor-webpack-plugin` to your `webpack.config.js`:
+添加 [Monaco Webpack plugin](https://github.com/Microsoft/monaco-editor-webpack-plugin) `monaco-editor-webpack-plugin` 到你项目中的 `webpack.config.js`:
 
 ```js
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
@@ -63,7 +63,7 @@ module.exports = {
 }
 ```
 
-If using [Vue CLI](https://cli.vuejs.org) instead of Webpack directly, you can add to `vue.config.js`:
+如果你项目中使用的是 [Vue CLI](https://cli.vuejs.org) 而不是webpack, 你需要配置 `vue.config.js`:
 
 ```js
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
@@ -82,23 +82,22 @@ module.exports = {
 
 ## Properties
 
-If you specify `value` property, the component behaves in controlled mode.
-Otherwise, it behaves in uncontrolled mode.
+如果你指定 `value` 属性, 组件则以受控模式运行。否则，它是非受控模式。
 
-- `width` width of editor. Defaults to `100%`.
-- `height` height of editor. Defaults to `100%`.
-- `value` value of the auto created model in the editor.
-- `original` value of the auto created original model in the editor.
-- `language` the initial language of the auto created model in the editor. Defaults to `javascript`.
-- `theme` the theme of the editor. Defaults to `vs`.
-- `options` refer to [Monaco interface IEditorConstructionOptions](https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditorconstructionoptions.html).
-- `editorBeforeMount(monaco)` The function called before the editor mounted (similar to `beforeMount` of Vue).
-- `editorMounted(editor, monaco)` The function called when the editor has been mounted (similar to `mounted` of Vue).
-- `change(newValue, event)` an event emitted when the content of the current model has changed.
+* `width`：editor 的宽度, 默认为`100%`
+* `height`：editor 的高度，默认为 `100%`.
+- `value`：editor 中可以自动创建 model 的值(value of the auto created model in the editor)
+- `original`：editor 中可以自动创建 original model 的值(value of the auto created original model in the editor).
+- `language`：编辑器中自动创建模型的初始语言，默认为 `javaScript`.
+- `theme`：编辑的主题，默认为 `vs`.
+- `options`：参考 [Monaco interface IEditorConstructionOptions](https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditorconstructionoptions.html).
+- `editorBeforeMount(monaco)`：在 editor 加载安装好之前调用的 function (类似于 Vue 中的 `beforeMount`).
+- `editorMounted(editor, monaco)`：在 editor 加载安装好后调用的 function (类似于 Vue 中的 `mounted`).
+- `change(newValue, event)`：当前 model 的内容发生更改时所触发的事件
 
 ## Events & Methods
 
-Refer to [Monaco interface IEditor](https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditor.html).
+参考 [Monaco interface IEditor](https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditor.html).
 
 ### Use multiple themes
 
