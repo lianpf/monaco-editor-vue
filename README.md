@@ -1,20 +1,13 @@
 # monaco-editor-vue
 
-> [Monaco Editor](https://github.com/Microsoft/monaco-editor) for Vue.
+> [Monaco Editor](https://github.com/lianpf/monaco-editor-vue) for Vue.
 
-[![NPM version][npm-image]][npm-url]
-[![Downloads][downloads-image]][npm-url]
-
-[![monaco-editor-vue](https://nodei.co/npm/monaco-editor-vue.png)](https://npmjs.org/package/monaco-editor-vue)
-
-[npm-url]: https://www.npmjs.com/package/monaco-editor-vue
-[downloads-image]: http://img.shields.io/npm/dm/monaco-editor-vue.svg
-[npm-image]: http://img.shields.io/npm/v/monaco-editor-vue.svg
 
 ## Installation
 
 ```bash
-npm install monaco-editor-vue
+npm install @lianpf/monaco-editor-vue --save
+npm install monaco-editor-webpack-plugin --save
 ```
 
 ## Using with Webpack
