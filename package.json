@@ -1,6 +1,6 @@
 {
   "name": "@lianpf/monaco-editor-vue",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.2",
   "description": "Monaco Editor for Vue",
   "main": "dist/index.js",
   "module": "dist/index",
@@ -40,5 +40,5 @@
     "monaco-editor-vue"
   ],
   "author": "lianpf",
-  "license": "ISC"
+  "license": "MIT"
 }
