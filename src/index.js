@@ -1,4 +1,5 @@
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+// import * as monaco from 'monaco-editor';
 
 function noop() { }
 
@@ -16,7 +17,16 @@ export default {
     theme: {type: String, default: 'vs'},
     options: {type: Object, default() {return {};}},
     editorMounted: {type: Function, default: noop},
-    editorBeforeMount: {type: Function, default: noop}
+    editorBeforeMount: {type: Function, default: noop},
+    hoverOption: {
+      type: Object,
+      default: () => {
+        return {
+          show: false,
+          tips: []
+        }
+      }
+    }
   },
 
   watch: {
@@ -78,6 +88,10 @@ export default {
   methods: {
     initMonaco() {
       const { value, language, theme, options } = this;
+      // 编辑器设置 hover tips
+      if (this.hoverOption.show) {
+        this.setEditorHover(language)
+      }
       Object.assign(options, this._editorBeforeMount());      //编辑器初始化前
       this.editor = monaco.editor[this.diffEditor ? 'createDiffEditor' : 'create'](this.$el, {
         value: value,
@@ -87,6 +101,30 @@ export default {
       });
       this.diffEditor && this._setModel(this.value, this.original);
       this._editorMounted(this.editor);      //编辑器初始化后
+    },
+    setEditorHover(language) {
+      let { tips } = this.hoverOption
+      if (tips.length === 0) return
+      monaco.languages.register({ id: language });
+      monaco.languages.registerHoverProvider(language, {
+        provideHover: function (model, position) {
+          let positionLine = position.lineNumber
+          let positionEndColumn = position.column
+          var textUntilPosition = {
+            startLineNumber: positionLine,
+            startColumn: 1,
+            endLineNumber: positionLine,
+            endColumn: positionEndColumn
+          }
+          let tipText = tips.some(item => item.lineNumber === positionLine) ? tips.filter(item => item.lineNumber === positionLine)[0].text : ''
+          return {
+              range: new monaco.Range(textUntilPosition.startLineNumber, textUntilPosition.startColumn, textUntilPosition.endLineNumber, textUntilPosition.endLineNumber),
+              contents: [
+                { value: tipText }
+              ]
+            }
+        }
+      });
     },
 
     _getEditor() {
