@@ -47,18 +47,30 @@ export default {
     return {
       defaultValue: [
         '{',
-        '    "type": "body",',
-        '    "name": "main",',
-        '    "children": [',
-        '        {',
-        '            "type": "button",',
-        '            "name": "btn01"',
-        '        },',
-        '        {',
-        '            "type": "select",',
-        '            "name": "select01"',
-        '        }',
-        '    ]',
+        '\t"type": "form",',
+        '\t"title": "表单",',
+        '\t"controls": [',
+        '\t\t{',
+        '\t\t\t"label": "文本框",',
+        '\t\t\t"type": "text",',
+        '\t\t\t"name": "text"',
+        '\t\t},',
+        '\t\t{',
+        '\t\t\t"type": "select",',
+        '\t\t\t"label": "选项",',
+        '\t\t\t"name": "select",',
+        '\t\t\t"options": [',
+        '\t\t\t\t{',
+        '\t\t\t\t\t"label": "选项A",',
+        '\t\t\t\t\t"value": "A"',
+        '\t\t\t\t},',
+        '\t\t\t\t{',
+        '\t\t\t\t\t"label": "选项B",',
+        '\t\t\t\t\t"value": "B"',
+        '\t\t\t\t}',
+        '\t\t\t]',
+        '\t\t}',
+        '\t]',
         '}'
       ],
       options: {
@@ -120,8 +132,14 @@ module.exports = {
 * `value`：editor 中可以自动创建 model 的值(value of the auto created model in the editor)
 * `language`：编辑器中自动创建模型的初始语言，默认为 `javaScript`.
 * `theme`：编辑的主题，默认为 `vs`.
-* `options`：参考 [Monaco interface IEditorConstructionOptions](https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditorconstructionoptions.html).
+* `options`: 可忽略. 基础功能外其他配置
+  - `readOnly`: 可忽略. 编辑器是否设置只读状态，默认 `false`
+  - 其他配置：参考 [Monaco interface IEditorConstructionOptions](https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditorconstructionoptions.html).
 * `hoverOption`: 可忽略. editor 悬停 tips, 默认值为 `{ show: false, tips: []}`.
+  - `show`: 是否展示悬停tips，默认值 `false`
+  - `tips`: 悬停tips config, 默认值 `[]`. Json 数组
+    - `lineNumber`: 需要悬停 tip 的行数
+    - `text`: 悬停 tip 文案
 * `original`：可忽略. editor 中可以自动创建 original model 的值(value of the auto created original model in the editor).
 * `editorBeforeMount(monaco)`：在 editor 加载安装好之前调用的 function (类似于 Vue 中的 `beforeMount`).
 * `editorMounted(editor, monaco)`：在 editor 加载安装好后调用的 function (类似于 Vue 中的 `mounted`).
@@ -136,43 +154,67 @@ module.exports = {
 [Monaco only supports one theme](https://github.com/Microsoft/monaco-editor/issues/338).
 
 ### 特殊功能示例
-#### 1、默认创建 editor 中 model
+#### 1、受控模式：默认创建 editor 中 model
 关键参数：`value`: String
-> example: jsonCode
+> example: jsonCode. 以language='json'为例
 
 ```
 // 默认初始值
 var jsonCode = [
-    '{',
-    '    "type": "body",',
-    '    "name": "main",',
-    '    "children": [',
-    '        {',
-    '            "type": "button",',
-    '            "name": "btn01"',
-    '        },',
-    '        {',
-    '            "type": "select",',
-    '            "name": "select01"',
-    '        }',
-    '    ]',
-    '}'
+  '{',
+  '\t"type": "form",',
+  '\t"title": "表单",',
+  '\t"controls": [',
+  '\t\t{',
+  '\t\t\t"label": "文本框",',
+  '\t\t\t"type": "text",',
+  '\t\t\t"name": "text"',
+  '\t\t},',
+  '\t\t{',
+  '\t\t\t"type": "select",',
+  '\t\t\t"label": "选项",',
+  '\t\t\t"name": "select",',
+  '\t\t\t"options": [',
+  '\t\t\t\t{',
+  '\t\t\t\t\t"label": "选项A",',
+  '\t\t\t\t\t"value": "A"',
+  '\t\t\t\t},',
+  '\t\t\t\t{',
+  '\t\t\t\t\t"label": "选项B",',
+  '\t\t\t\t\t"value": "B"',
+  '\t\t\t\t}',
+  '\t\t\t]',
+  '\t\t}',
+  '\t]',
+  '}'
 ].join('\n');
 
 // 编辑器视觉展示格式
 {
-    "type": "body",
-    "name": "main",
-    "children": [
-        {
-            "type": "button",
-            "name": "btn01"
-        },
-        {
-            "type": "select",
-            "name": "select01"
-        }
-    ]
+	"type": "form",
+	"title": "表单",
+	"controls": [
+		{
+			"label": "文本框",
+			"type": "text",
+			"name": "text"
+		},
+		{
+			"type": "select",
+			"label": "选项",
+			"name": "select",
+			"options": [
+				{
+					"label": "选项A",
+					"value": "A"
+				},
+				{
+					"label": "选项B",
+					"value": "B"
+				}
+			]
+		}
+	]
 }
 ```
 
@@ -185,8 +227,8 @@ hoverOptionExample: {
   show: true, // 展示
   tips: [
     {
-      lineNumber: 2,
-      text: 'Here is the tip on the 2 line'
+      lineNumber: 2, // 要展示 tip 的行
+      text: 'Here is the tip on the 2 line' // 第2行所展示tip的内容
     },
     {
       lineNumber: 3,
